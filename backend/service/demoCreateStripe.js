@@ -5,8 +5,8 @@ const stripe = new Stripe(claveSecreta, {
   apiVersion: "2023-10-16", // Asegúrate de utilizar la versión correcta de la API de Stripe
 });
 
-export const createStripe = async (req, res) => {
-  const { products } = req.body;
+export const demoCreateStripe = async (req, res) => {
+  const {products} = req.body;
 
   const lineItems = products.map(el => {
     return {
@@ -33,8 +33,8 @@ export const createStripe = async (req, res) => {
       cancel_url: "http://127.0.0.1:5173/",
     });
     console.log("payment - ID:", payment.id);
-    
-    return res.status(200).json({ id: payment.id });
+
+    return res.status(200).json({ url: payment.url });
   } catch (error) {
     console.log("error:", error);
     return res.json({ message: error.raw.message });
